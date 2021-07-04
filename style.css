@@ -1,0 +1,116 @@
+.primary-window {
+    display: grid;
+    justify-content: center;
+    margin-top: 100px;
+    grid-template-columns: auto;
+    grid-template-rows: auto;
+    width: auto;
+    height: auto;
+    grid-template-areas: '. display screen .'
+                         'seven eight nine add'
+                         'four five six subtract'
+                         'one two three multiply'
+                         'zero enter . divide';
+                        }
+
+.display-screen {
+    align-self: center;
+    grid-column: 1 / 4 wide;
+    grid-row: 1;
+    border: 3px solid red;
+    height: 98px;
+    width: 390px;
+    font-size: 48px;
+    text-align: right;
+}
+
+.buttons {
+    display: grid;
+    justify-content: center;
+    border: 3px solid green;
+    height: 390px;
+    width: 390px;
+}
+
+.button {
+    height: 96px;
+    width: 96px;
+    font-size: 36px;
+}
+
+#zero {
+    grid-column: 1;
+    grid-row: 4;
+}
+
+#one {
+    grid-column: 1;
+    grid-row: 3;
+}
+
+#two {
+    grid-column: 2;
+    grid-row: 3;
+}
+
+#three {
+    grid-column: 3;
+    grid-row: 3;
+}
+
+#four {
+    grid-column: 1;
+    grid-row: 2;
+}
+
+#five {
+    grid-column: 2;
+    grid-row: 2;
+}
+
+#six {
+    grid-column: 3;
+    grid-row: 2;
+}
+
+#seven {
+    grid-column: 1;
+    grid-row: 1;
+}
+
+#eight {
+    grid-column: 2;
+    grid-row: 1;
+}
+
+#nine {
+    grid-column: 3;
+    grid-row: 1;
+}
+
+#add {
+    grid-column: 4;
+    grid-row: 1;
+}
+
+#subtract {
+    grid-column: 4;
+    grid-row: 2;
+}
+
+#multiply {
+    grid-column: 4;
+    grid-row: 3;
+
+}
+
+#divide {
+    grid-column: 4;
+    grid-row: 4;
+}
+
+#enter {
+    grid-column: 2 / 2 wide;
+    grid-row: 4;
+    width: 200%;
+}
