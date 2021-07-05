@@ -8,6 +8,7 @@ html {
 }
 
 h1 {
+    position: inherit;
     margin: -1.25%;
     text-align: center;
     font-size: 90px;
@@ -16,10 +17,11 @@ h1 {
 .primary-window {
     display: grid;
     justify-content: center;
+    align-content: center;
     background-color: rgb(77, 4, 83);
     border: none;
     margin-top: 20px;
-    margin-left: 390px;
+    margin-left: 30%;
     grid-template-columns: auto;
     grid-template-rows: auto;
     width: 460px;
@@ -43,7 +45,7 @@ h1 {
     width: 390px;
 }
 
-p.display-screen {
+p#result {
     grid-column: 1 / span 4;
     grid-row: 1;
     border: none;
@@ -53,10 +55,10 @@ p.display-screen {
     display: flex;
     justify-content: flex-start;
     flex-direction: row-reverse;
-    font-size: 34px;
+    font-size: 40px;
 }
 
-p.input {
+p#input {
     grid-column: 1 / span 4;
     grid-row: 2;
     margin-top: -.7%;
@@ -65,7 +67,7 @@ p.input {
     display: flex;
     justify-content: flex-start;
     flex-direction: row-reverse;
-    font-size: 40px;
+    font-size: 34px;
 }
 
 .buttons {
