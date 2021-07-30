@@ -1,51 +1,117 @@
 // Variables
-// const buttons = document.querySelectorAll('.button');
-const zero = document.getElementById('zero');
-const one = document.getElementById('one');
-const two = document.getElementById('two');
-const three = document.getElementById('three');
-const four = document.getElementById('four');
-const five = document.getElementById('five');
-const six = document.getElementById('six');
-const seven = document.getElementById('seven');
-const eight = document.getElementById('eight');
-const nine = document.getElementById('nine');
-const enter = document.getElementById('enter');
-const addition = document.getElementById('add');
-const subtraction = document.getElementById('subtract');
-const multiplication = document.getElementById('multiply');
-const division = document.getElementById('divide');
-const inputDisplay = document.getElementById('input')
-const resultDisplay = document.getElementById('result')
+const numbers = document.querySelectorAll('[data-number]');
+const operators = document.querySelectorAll('[data-operation]');
+const acButton = document.querySelector('[data-ac]');
+const clearButton = document.querySelector('[data-clear]');
+const enterButton = document.querySelector('#enter');
+const previous = document.querySelector('#previous');
+const current = document.querySelector('p#current');
+let currentValue = '';
+let previousValue = '';
+let operation;
+let result;
 
-// Basic Arithmetic Operations
-function add(a, b) {
-    return a + b;
+// Arithmatic Operations
+function add(a,b) {
+    a = parseFloat(a);
+    b = parseFloat(b);
+    return (a + b);
 }
 
-function subtract(a, b) {
-    return a - b;
+function subtract(a,b) {
+    a = parseFloat(a);
+    b = parseFloat(b);
+    return (a - b);
 }
 
-function divide(a, b) {
-    if (b === 0) {
+function multiply(a,b) {
+    a = parseFloat(a);
+    b = parseFloat(b);
+    return (a * b);
+}
+
+function divide(a,b) {
+    if (parseFloat(b) === 0) {
         return 'ERROR';
     }
-    return a / b;
+    a = parseFloat(a);
+    b = parseFloat(b);
+    return (a / b);
 }
 
-function multiply(a, b) {
-    return a * b;
+// Calculator Functions
+function workingValue() {
+    if (currentValue.includes('.')) {
+        numbers[10].disabled = true;
+    }
+    if (currentValue.length > 9) {
+        numbers.forEach(button => {
+            button.disabled = true;
+        })
+    }
+    current.textContent += this.textContent;
+    currentValue = current.textContent;
 }
 
-// Event Listeners
-zero.addEventListener('click', () => console.log(0));
-one.addEventListener('click', () => console.log(1));
-two.addEventListener('click', () => console.log(2));
-three.addEventListener('click', () => console.log(3));
-four.addEventListener('click', () => console.log(4));
-five.addEventListener('click', () => console.log(5));
-six.addEventListener('click', () => console.log(6));
-seven.addEventListener('click', () => console.log(7));
-eight.addEventListener('click', () => console.log(8));
-nine.addEventListener('click', () => console.log(9));
+function operate() {
+    if (currentValue !== null) {
+        previous.textContent = `${currentValue} ${this.dataset.operation}`;
+        operation = this.dataset.operation;
+        previousValue = currentValue
+        clearCurrent();
+        currentValue = '';
+        numbers[10].disabled = false;
+    }
+}
+
+function enter() {
+    if (operation === '+' && currentValue !== '') {
+        result = add(previousValue,currentValue);
+        previous.textContent = result;
+        current.textContent = '';
+    } else if (operation === '-' && currentValue !== '') {
+        result = subtract(previousValue,currentValue);
+        previous.textContent = result;
+        current.textContent = '';
+    } else if (operation === '*' && currentValue !== '') {
+        result = multiply(previousValue,currentValue);
+        previous.textContent = result;
+        current.textContent = '';
+    } else if (operation === '/' && currentValue !== '') {
+        result = divide(previousValue,currentValue);
+        previous.textContent = result;
+        current.textContent = '';
+    }
+    previousValue = previous.textContent;
+    currentValue = previousValue;
+    previousValue = '';
+    operation = '';
+    numbers[10].disabled = false
+}
+
+function clearCurrent() {
+    numbers[10].disabled = false
+    currentValue = '';
+    current.textContent = '';
+}
+
+function allClear() {
+    numbers[10].disabled = false;
+    currentValue = '';
+    current.textContent = '';
+    previousValue = '';
+    previous.textContent = '';
+    operation = '';
+}
+
+// Listeners
+numbers.forEach(button => {
+    button.addEventListener('click', workingValue)
+});
+
+operators.forEach(button => {
+    button.addEventListener('click', operate)
+});
+acButton.addEventListener('click', allClear);
+clearButton.addEventListener('click', clearCurrent);
+enterButton.addEventListener('click', enter);
