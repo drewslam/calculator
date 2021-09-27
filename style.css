@@ -1,69 +1,101 @@
 @import url('https://fonts.googleapis.com/css2?family=Ubuntu&family=VT323&display=swap');
 
+:root {
+    --decoratorsWhite: rgb(235, 237, 234);
+    --agaeanTeal: rgb(111, 137, 139);
+    --blackBeauty: rgb(57, 55, 54);
+}
+
 html {
     font-family: 'VT323', monospace;
-    background-color: rgb(172, 158, 182);
-    width: 99%;
-    height: 99%;
+    background-image: radial-gradient(circle, var(--decoratorsWhite), var(--agaeanTeal) 58%);
+    width: 100%;
+    height: 100%;
 }
 
 h1 {
     text-align: center;
+    font-size: 5.15em;
+    color: var(--blackBeauty);
+    font-weight: bolder;
 }
 
 .calculator-window {
     margin: auto;
     display: grid;
     align-items : center;
-    border: ivory dotted 5px;
-    width: 250px;
-    height: 325px;
+    border: var(--decoratorsWhite) dotted 5px;
+    width: 20rem;
+    height: 26rem;
 }
 
 .display-window {
     margin: auto;
-    width: 200px;
-    height: 100px;
-    border: solid ivory 2px;
-    font-size: 25px;
+    margin-top: 12%;
+    width: 80%;
+    height: 60%;
+    border: solid var(--decoratorsWhite) 2px;
     text-align: right;
 }
 
 .previous {
+    margin: auto;
     width: auto;
-    height: 45%;
+    height: 50%;
 }
 
 .current {
+    margin: auto;
     width: auto;
-    height: 45%;
+    height: 50%;
 }
 
 p {
     margin: auto;
+    height: 2em;
+    width: 100%;
+    color: var(--blackBeauty);
+    font-size: 2em;
 }
 
 button {
-    width: 50px;
-    height: 25px;
+    width: 100%;
+    height: 100%;
+    border: none;
+    border-radius: 50%;
+    align-self: center;
+    opacity: 65%;
+    background-color: rgb(235, 237, 234);
+    color: rgb(111, 137, 139);
+    font-size: 1rem;
+    font-weight: bolder;
+}
+
+button:hover {
+    background-color: rgb(111, 137, 139);
+    color: rgb(235, 237, 234);
+    opacity: 65%;
 }
 
 .buttons {
+    border:bold rgb(111, 137, 139) 5px;
     margin: auto;
-    width: 200px;
-    height: 100px;
+    width: 80%;
+    height: 80%;
     display: grid;
     justify-content: space-between;
-    grid-template-columns: auto auto auto auto;
+    grid-template-columns: 25% 25% 25% 25%;
     grid-template-rows: auto;
 }
 
 #AC {
     width: 100%;
     grid-column: 1 / span 2;
+    align-self: center;
 }
 
 #enter {
     width: 100%;
     grid-column: 3 / span 2;
+    align-self: center;
 }
