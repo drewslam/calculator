@@ -11,79 +11,60 @@ let previousValue = '';
 let operation;
 let result;
 
+// Editing Functions
+const enableDecimal = () => numbers[10].disabled = false;
+const disableDecimal = () => numbers[10].disabled = true;
+const clearCurrentValue = () => {
+    current.textContent = '';
+    currentValue = '';
+}
+const enableButtons = () => numbers.forEach(button => button.disabled = false);
+const disableButtons = () => numbers.forEach(button => button.disabled = true);
+
 // Arithmatic Operations
-function enableDecimal() {
-        numbers[10].disabled = false;
-}
-
-function add(a,b) {
-    a = parseFloat(a);
-    b = parseFloat(b);
-    return (a + b);
-}
-
-function subtract(a,b) {
-    a = parseFloat(a);
-    b = parseFloat(b);
-    return (a - b);
-}
-
-function multiply(a,b) {
-    a = parseFloat(a);
-    b = parseFloat(b);
-    return (a * b);
-}
-
-function divide(a,b) {
-    if (parseFloat(b) === 0) {
-        return 'ERROR';
-    }
-    a = parseFloat(a);
-    b = parseFloat(b);
-    return (a / b);
-}
+const add = (a, b) => a + b;
+const subtract = (a, b) => a - b;
+const multiply = (a, b) => a * b;
+const divide = (a, b) => b === 0 ? 'ERROR' : (a / b);
 
 // Calculator Functions
 function workingValue() {
     if (currentValue.includes('.')) {
-        numbers[10].disabled = true;
+        disableDecimal();
     }
     if (currentValue.length >= 9) {
-        numbers.forEach(button => button.disabled = true)
+        disableButtons();
     }
     current.textContent += this.textContent;
     currentValue = current.textContent;
 }
 
-function operate() {
+function arithmaticOperator() {
     if (currentValue !== null) {
         previous.textContent = `${currentValue} ${this.dataset.operation}`;
         operation = this.dataset.operation;
         previousValue = currentValue
-        current.textContent = '';
-        currentValue = '';
-        enableDecimal();
+        clearCurrentValue();
+        enableButtons();
     }
 }
 
 function enter() {
     if (previousValue === '' || previousValue === null) {
-        previousValue = '';
+        previous.textContent = '';
         return;
-    } else if (operation === '+' && currentValue !== '') {
-        result = add(previousValue,currentValue);
-        previous.textContent = result;
-        current.textContent = '';
-    } else if (operation === '-' && currentValue !== '') {
-        result = subtract(previousValue,currentValue);
-        previous.textContent = result;
-        current.textContent = '';
-    } else if (operation === '*' && currentValue !== '') {
-        result = multiply(previousValue,currentValue);
-        previous.textContent = result;
-        current.textContent = '';
-    } else if (operation === '/' && currentValue !== '') {
-        result = divide(previousValue,currentValue);
+    } else if (currentValue !== '') {
+        previousValue = parseFloat(previousValue);
+        currentValue = parseFloat(currentValue);
+        if (operation === '+') {
+            result = add(previousValue, currentValue);
+        } else if (operation === '-') {
+            result = subtract(previousValue, currentValue);
+        } else if (operation === '*') {
+            result = multiply(previousValue, currentValue);
+        } else if (operation === '/') {
+            result = divide(previousValue, currentValue);
+        }
         previous.textContent = result;
         current.textContent = '';
     } else if (operation === '' || operation === null) {
@@ -100,17 +81,16 @@ function backSpace() {
     current.textContent = currentValue.slice(0, currentValue.length - 1);
     currentValue = current.textContent;
     if (!currentValue.indexOf('.')) {
-    enableDecimal()
-}
+        enableDecimal();
+    }
     if (currentValue.length < 9) {
-        numbers.forEach(button => button.disabled = false)
+        enableButtons();
     }
 }
 
 function allClear() {
-    numbers.forEach(button => button.disabled = false);
-    currentValue = '';
-    current.textContent = '';
+    enableButtons();
+    clearCurrentValue();
     previousValue = '';
     previous.textContent = '';
     operation = '';
@@ -118,11 +98,11 @@ function allClear() {
 
 // Listeners
 numbers.forEach(button => {
-    button.addEventListener('click', workingValue)
+    button.addEventListener('click', workingValue);
 });
 
 operators.forEach(button => {
-    button.addEventListener('click', operate)
+    button.addEventListener('click', arithmaticOperator);
 });
 acButton.addEventListener('click', allClear);
 backButton.addEventListener('click', backSpace);
